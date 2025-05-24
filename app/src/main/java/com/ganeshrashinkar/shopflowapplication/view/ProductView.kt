@@ -50,33 +50,8 @@ fun ProductView(product:ProductsResponseItem ){
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Fit // or BoxFit depending on your needs
             )
-            Box(){
-                val painter2=painterResource(id= R.drawable.card_black_shape)
-                Image(
-                    painter = painter2,
-                    contentDescription = "Background Image",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .padding(bottom = 20.dp)
-                    ,
-                    contentScale = ContentScale.FillWidth // or BoxFit depending on your needs
-                )
-                Column(
-                    modifier = Modifier.padding(30.dp)
-                ) {
-                    Row {
-                        Text(text = product.name, color = Color.White)
-                        Spacer(modifier = Modifier.weight(1f))
-                        Text(text = "In Stock", color = Color.White)
-                    }
-
-                    Text(text = product.product_type.replace("_"," ").capitalize(), color = Color.White)
-                    Text(text = product.description.substringBefore("."), color = Color.White, maxLines = 2)
-                    Text(text = "Rs. ${product.price}", color = Color.White)
-                }
-            }
-
+            CardBottom(product)
+            Spacer(modifier = Modifier.height(10.dp))
 
         }
     }

@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
                 var data by remember { productsViewModels.productsState  }
                 Scaffold(modifier = Modifier.fillMaxSize()) {
                     if(data is Resource.Loading){
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(modifier = Modifier.fillMaxSize())
                     }else if(data is Resource.Error){
                         Text("Null Data")
                     }
@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(list: List<ProductsResponseItem>) {
-    LazyColumn(modifier = Modifier.background(Color.Black).padding(10.dp)) {
+    LazyColumn(modifier = Modifier.background(Color.Black)) {
         items(list){
         product->
         ProductView(product)
