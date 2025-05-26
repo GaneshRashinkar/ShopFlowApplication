@@ -59,7 +59,7 @@ fun ProductView(product:ProductsResponseItem ){
         }
         // Optional: Add content on top of the image using Box with alignment
         Box(
-            modifier = Modifier.background(color = colorResource(R.color.primaryColor)),
+            modifier = Modifier.background(color = colorResource(R.color.white)),
             contentAlignment = Alignment.BottomStart
         ) {
             Box(
@@ -76,30 +76,31 @@ fun ProductView(product:ProductsResponseItem ){
                     )
             }
 
-            Image(
-                painter = painter,
-                contentDescription = "Background Image",
-                modifier  = Modifier
-                    .matchParentSize(),
-                contentScale = ContentScale.FillBounds // or BoxFit depending on your needs
-            )
+//            Image(
+//                painter = painter,
+//                contentDescription = "Background Image",
+//                modifier  = Modifier
+//                    .matchParentSize(),
+//                contentScale = ContentScale.FillBounds // or BoxFit depending on your needs
+//            )
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//                AsyncImage(
-//                    model = product.image_link?:painter1,
-//                    contentDescription = product.name,
-//                    modifier=Modifier
-//                        .height(250.dp),
-//                    contentScale = ContentScale.Fit,
-//                    placeholder = painter1
-//                )
-                Image(
-                    painter = painter1,
-                    contentDescription = "Background Image",
-                    modifier = Modifier.weight(1f)
-                        .fillMaxWidth(),
-                    contentScale = ContentScale.Fit,
-                    alignment = Alignment.BottomCenter
+                AsyncImage(
+                    model = product.api_featured_image.replace("//","https://"),
+                    contentDescription = product.name,
+                    modifier=Modifier
+                        .weight(1f)
+                        ,
+                    contentScale = ContentScale.Inside,
+                    placeholder = painter1
                 )
+//                Image(
+//                    painter = painter1,
+//                    contentDescription = "Background Image",
+//                    modifier = Modifier.weight(1f)
+//                        .fillMaxWidth(),
+//                    contentScale = ContentScale.Fit,
+//                    alignment = Alignment.BottomCenter
+//                )
                 CardBottom(product, modifier = Modifier.padding(bottom = 20.dp))
 
             }

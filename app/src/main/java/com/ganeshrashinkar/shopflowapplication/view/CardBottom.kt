@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,50 +47,67 @@ import kotlin.random.Random
 
 @Composable
 fun CardBottom(product: ProductsResponseItem,modifier:Modifier=Modifier){
-    Box(modifier=modifier.padding(16.dp)){
-        val painter2= painterResource(id= R.drawable.card_black_shape)
-        Image(
-            painter = painter2,
-            contentDescription = "Background Image",
-            modifier = Modifier
-                .matchParentSize()
-
-            ,
-            contentScale = ContentScale.FillBounds // or BoxFit depending on your needs
-        )
-        Column(
-            modifier = Modifier.padding(15.dp)
-        ) {
-            Row {
-                Text(text = product.name, color = colorResource(R.color.secondaryColor)  ,
-                    fontFamily = tangerineFontFamily, fontSize = 20.sp,
-                    modifier = Modifier.weight(1f)
+    Card(modifier=Modifier.padding(16.dp)) {
+        Box(modifier = Modifier.background(colorResource(R.color.primaryColor))) {
+            val painter2 = painterResource(id = R.drawable.card_black_shape)
+//        Image(
+//            painter = painter2,
+//            contentDescription = "Background Image",
+//            modifier = Modifier
+//                .matchParentSize()
+//
+//            ,
+//            contentScale = ContentScale.FillBounds // or BoxFit depending on your needs
+//        )
+            Column(
+                modifier = Modifier.padding(15.dp)
+            ) {
+                Row {
+                    Text(
+                        text = product.name, color = colorResource(R.color.secondaryColor),
+                        fontFamily = tangerineFontFamily, fontSize = 20.sp,
+                        modifier = Modifier.weight(1f)
                     )
-                Text(text = "In Stock",
-                    color = colorResource(R.color.secondaryColor),
+                    Text(
+                        text = "In Stock",
+                        color = colorResource(R.color.secondaryColor),
+                        fontSize = 14.sp,
+                        modifier = Modifier.weight(1f),
+                        textAlign = TextAlign.End
+                    )
+                }
+
+                Text(
+                    text = product.product_type.replace("_", " ").capitalize(),
+                    color = Color.White,
                     fontSize = 14.sp,
-                    modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.End
-                    )
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = product.description.removeHtmlTags(),
+                    overflow = TextOverflow.Ellipsis,
+                    color = Color.White, maxLines = 2,
+                    modifier = Modifier.width(250.dp),
+                    fontSize = 14.sp
+                )
+                Text(
+                    text = "Rs. ${product.price}",
+                    color = colorResource(R.color.purpleFent),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                RatingStars(Random.nextInt(5))
             }
-
-            Text(text = product.product_type.replace("_"," ").capitalize(), color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-            Text(text = product.description.removeHtmlTags(),
-                overflow = TextOverflow.Ellipsis,
-                color = Color.White, maxLines = 2,
-                modifier = Modifier.width(250.dp),
-                fontSize = 14.sp
-            )
-            Text(text = "Rs. ${product.price}", color = colorResource(R.color.purpleFent), fontSize = 14.sp, fontWeight = FontWeight.Bold)
-            RatingStars(Random.nextInt(5))
-        }
 
             Box(
                 modifier = Modifier
                     .size(50.dp)
                     .clip(CircleShape)
                     .align(Alignment.BottomEnd)
-                    .border(BorderStroke(2.dp, colorResource(R.color.secondaryColor)), shape = CircleShape),
+                    .border(
+                        BorderStroke(2.dp, colorResource(R.color.secondaryColor)),
+                        shape = CircleShape
+                    ),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
@@ -99,6 +117,7 @@ fun CardBottom(product: ProductsResponseItem,modifier:Modifier=Modifier){
                 )
             }
 
+        }
     }
 }
 
